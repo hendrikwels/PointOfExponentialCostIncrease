@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import curveData
 from diminishPoint import calculate_diminishing_point
 
@@ -9,7 +8,7 @@ def visualize(dataframe, marginal_reach):
     """
     Visualize the Reach Curve and the Marginal Reach Curve
     :param dataframe: The Dataframe containing the Reach Curve, that was created with curveData.py
-    :param marginal_reach: The marginal product/reach curve that is neccessary for the  diminish_point variable and
+    :param marginal_reach: The marginal product/reach curve that is necessary for the  diminish_point variable and
     used as secondary Curve
     :return: Matplotlib Plot
     """
@@ -40,14 +39,15 @@ def visualize(dataframe, marginal_reach):
     text = f"Target Group: {curveData.core_target_group}\n" + \
            f"Buying Target Group: {curveData.buying_target_group}\n" \
            f"Country: {curveData.country}\n" \
-           f"Diminishing Point: {diminish_point}%"
+           f"Diminishing Point: {diminish_point}%"  # TODO: limit to 2 Decimals
+    # TODO: Add the required GRPs and Budget to the Text Box
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     ax.text(0.05, 0.95, text,
             transform=ax.transAxes, fontsize=11,
             verticalalignment='top', bbox=props)
 
     # plot the final Plot
-    plt.plot(x, y) # Todo: Add a Legend with Color Coding
+    plt.plot(x, y)  # Todo: Add a Legend with Color Coding
 
     # Build Lines to highlight the Diminishing Point
 
