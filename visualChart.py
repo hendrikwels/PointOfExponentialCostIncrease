@@ -18,6 +18,7 @@ def visualize(dataframe, marginal_reach):
     x = dataframe["Budget"]
     y = dataframe["Reach_Percent"]
     diminish_point = calculate_diminishing_point(dataframe, marginal_reach)
+    target_grp = dataframe.loc[dataframe['Reach_Percent'] == diminish_point, 'GRP'].iloc[0]
 
     # Set Diagram Labels
     ax.set_xlabel('Budget M EUR')
@@ -39,15 +40,15 @@ def visualize(dataframe, marginal_reach):
     text = f"Target Group: {curveData.core_target_group}\n" + \
            f"Buying Target Group: {curveData.buying_target_group}\n" \
            f"Country: {curveData.country}\n" \
-           f"Diminishing Point: {diminish_point}%"  # TODO: limit to 2 Decimals
-    # TODO: Add the required GRPs and Budget to the Text Box
+           f"Diminishing Point: {round(diminish_point, 2)}%\n" \
+           f"Target GRP: {target_grp}\n"
     props = dict(boxstyle='round', facecolor='wheat', alpha=0.5)
     ax.text(0.05, 0.95, text,
-            transform=ax.transAxes, fontsize=11,
+            transform=ax.transAxes, fontsize=9,
             verticalalignment='top', bbox=props)
 
     # plot the final Plot
-    plt.plot(x, y)  # Todo: Add a Legend with Color Coding
+    plt.plot(x, y)
 
     # Build Lines to highlight the Diminishing Point
 
@@ -69,5 +70,10 @@ def visualize(dataframe, marginal_reach):
     ax2.plot(x, dataframe["marginal_reach_cost"], color='green')
     # Transform marginal reach cost to an exponential curve
     ax2.set_yscale('log')
+
+    # Add a Legend for Reach Curve, Marginal Reach Cost and Diminishing Point
+    ax.legend(['Reach Curve', 'Diminishing Point'], loc='best')
+    # second Y Axis Legend lower than first Y Axis / loc=7 = Middle
+    ax2.legend(['Marginal Reach Cost'], loc=7)
 
     plt.show()

@@ -13,10 +13,10 @@ core_target_group = user_input["target_group"]
 buying_target_group = user_input["buying_target_group"]
 country = user_input["country"]
 market = user_input["market"]
+cpp = user_input["cpp"]
 
 
 # 2. Open Gross Contacts Calculator File
-wb = xw.Book()
 wb = xw.Book("160922_GrossContactsCalculatorTVFY2223.xlsm")
 ws = wb.sheets["Manual TV"]  # ws is the worksheet object and the second Worksheet (Manual TV) in the Workbook
 
@@ -39,8 +39,7 @@ def create_reach_data():
     df = pd.DataFrame(reach_curve_list, columns=["GRP", "Reach"])
 
     # 5. Add a column with the Budget
-    df["Budget"] = df["GRP"] * 1500  # 1500 EUR Proxy per GRP
-    # #TODO: Create function to calculate average CPP
+    df["Budget"] = df["GRP"] * cpp
 
     # 6. Add a colum that calculated cost per Reach Point
     df["CostPerReachPoint"] = df["Budget"] / df["Reach"]
